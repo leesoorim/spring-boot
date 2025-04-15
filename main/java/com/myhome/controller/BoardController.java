@@ -3,7 +3,10 @@ package com.myhome.controller;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.myhome.dto.BoardDto;
@@ -32,15 +35,55 @@ public class BoardController {
 		return mav;
 	}
 	
+	@PostMapping("b/insert")
+	public String insertBoard(BoardDto dto) throws Exception {
+		
+		int result = boardService.insertBoard(dto);
+		if(result==1) {
+			System.out.println("== 저장 완료 ==");
+		}else {
+			System.out.println("== 저장 실패 ==");
+		}
+		
+		return "redirect:list";
+	}
+	
 	@GetMapping("b/list")
-	public String boardList(BoardDto dto) throws Exception {
+	public String selectboardList(BoardDto dto,ModelMap model) throws Exception {
 		
 		List<?> list = boardService.selectBoardList(dto);
-		
+		// JSP로 출력을 위한 세팅
+		model.addAttribute("datalist",list); // (변수명,데이터값)
 		System.out.println("list : "+ list);
 		
-		return "board/boardList";
+		return "board/boardList"; // jsp외에는 못 옴 확장자는 안 써도됨
 	}
+	
+	@GetMapping("b/detail/{seqid}")
+	public String selectBoardDetail(@PathVariable int seqid,ModelMap model) throws Exception{
+		
+		// 관련 서비스 실행
+		BoardDto dto = boardService.selectBoardDetail(seqid);
+		model.addAttribute("dto",dto);
+		
+		return "board/boardDetail";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

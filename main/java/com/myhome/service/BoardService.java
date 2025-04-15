@@ -8,6 +8,11 @@ import com.myhome.dto.BoardDto;
  */
 public interface BoardService {
 	
-	public List<?> selectBoardList(BoardDto dto)throws Exception;
+	public List<?> selectBoardList(BoardDto dto)throws Exception;	
+	
+	public int insertBoard(BoardDto dto) throws Exception; 
+	
+	// 상세보기 (한 건 출력)
+	public BoardDto selectBoardDetail(int seqid) throws Exception;
 
 }

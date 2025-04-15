@@ -5,9 +5,61 @@
 
 	<select id="selectBoardList" resultType="Map">
 	
-		select seqid,title,writer,hits,rdate from nboard
+		select 
+			   seqid
+			  ,title
+			  ,writer
+			  ,hits
+			  ,to_char(rdate,'yyyy-mm-dd') rdate 
+			  ,to_char(udate,'yyyy-mm-dd') udate 
+			  ,content
+		from 
+			  nboard
+	    order by
+	    	  seqid desc
 	
 	</select>
+	
+	<select id="selectBoardDetail" resultType="com.myhome.dto.BoardDto">
+	
+	select 
+		   seqid 
+		  ,title
+		  ,pass
+		  ,writer
+		  ,content
+		  ,hits
+		  ,rdate
+		  ,udate
+	from
+		nboard
+	where
+		seqid=#{seqid}
+		
+	
+	</select>
+	
+	<insert id="insertBoard">
+		
+		insert into nboard(SEQID
+						  ,TITLE
+						  ,PASS
+						  ,WRITER
+						  ,CONTENT
+						  ,HITS
+						  ,RDATE
+						  ,UDATE) 
+				   values(
+				   		   nboard_seq.nextval
+						  ,#{title}
+						  ,#{pass}
+						  ,#{writer}
+						  ,#{content}
+						  ,'0'
+						  ,sysdate
+						  ,'')
+	
+	</insert>
 
 
 </mapper>

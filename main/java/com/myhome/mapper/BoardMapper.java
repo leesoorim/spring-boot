@@ -11,4 +11,8 @@ public interface BoardMapper {
 
 	List<?> selectBoardList(BoardDto dto);
 
+	int insertBoard(BoardDto dto);
+
+	BoardDto selectBoardDetail(int seqid);
+
 }

@@ -19,7 +19,18 @@ public class BoardServiceImpl implements BoardService{
 	 */
 	@Override
 	public List<?> selectBoardList(BoardDto dto) throws Exception {
+		// 프로그램 작성
 		return mapper.selectBoardList(dto);
+	}
+
+	@Override
+	public int insertBoard(BoardDto dto) throws Exception {
+		return mapper.insertBoard(dto);
+	}
+
+	@Override
+	public BoardDto selectBoardDetail(int seqid) throws Exception {
+		return mapper.selectBoardDetail(seqid);
 	}
 
 }

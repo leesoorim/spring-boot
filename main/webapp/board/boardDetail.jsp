@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>게시판 글쓰기</title>
+	<title>게시판 상세화면</title>
 	<link rel="stylesheet" href="/css/style.css"/>
 	<script src="/js/fn_script.js"></script>
 </head>
@@ -28,10 +28,6 @@ function fn_board_submit(){
 </div>
 <form name="frm" method="post" action="insert">
 <div class="div_top_button">
-	<!-- return false : submit()버튼 기능의 전송기능을 없애는 세팅 -->
-	<!-- submit()버튼 :: 전송기능,{enter}버튼의 인식 -->
-	<button type="submit" onClick="fn_board_submit(); return false;" >저장</button>
-	<button type="reset">취소</button>
 	<button type="button" onClick="location='boardList.jsp'">목록</button>
 </div>
 
@@ -42,19 +38,15 @@ function fn_board_submit(){
 	</colgroup>
 	<tr>
 		<th><label for="title">제목</label></th>
-		<td><input type="text" id="title" name="title" class="input1" placeholder="제목입력" autofocus ></td>
-	</tr>
-	<tr>
-		<th><label for="pass">암호</label></th>
-		<td><input type="password" id="pass" name="pass" class="input1" placeholder="암호입력" ></td>
+		<td>${dto.title }</td>
 	</tr>
 	<tr>
 		<th><label for="writer">글쓴이</label></th>
-		<td><input type="text" id="writer" name="writer" class="input1"></td>
+		<td>${dto.writer }</td>
 	</tr>
 	<tr>
 		<th><label for="content">내용</label></th>
-		<td><textarea id ="content" name="content" class="textarea1"></textarea></td>
+		<td>${dto.content }</td>
 	</tr>
 	
 </table>
