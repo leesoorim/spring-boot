@@ -39,7 +39,8 @@ public class BoardController {
 		} else {
 			System.out.println("== 저장 실패 ==");
 		}
-		return "redirect:list";
+		return "";
+		//return "redirect:list";
 	}
 	
 	@PostMapping("b/update")

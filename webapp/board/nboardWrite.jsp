@@ -12,9 +12,16 @@
   	<link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
   	<script src="../js/jquery-3.7.1.js"></script>
   	<script src="../js/jquery-ui.js"></script>
+
   	<script>
  	$( function() {
-   		$("#rdate").datepicker();
+
+ 		$("#rdate").datepicker();
+ 		
+ 		$("#btn_list").click( function(){
+ 			location = "/nboardList";
+ 		});
+ 		
    		$("#btn_submit").click( function(){
    			if( $("#title").val() == "" ) {
 				alert("제목을 입력하세요.");
@@ -26,6 +33,29 @@
 				$("#pass").focus();
 				return false;
    			}
+   			<!-- ajax() : {비동기}전송 -->
+   			let form = $("#frm").serialize();  // serialize() : 폼을 인식하는 함수
+			$.ajax({
+				type:"post",		// 전송 타입
+				url:"/nboardInsert",// 전송 장소
+				data:form,   		// 전송 데이터
+
+   				datatype:"text", 	      // 받는 데이터 타입
+   				// success : 전송에 성공한 경우
+   				// let data = "ok";
+   				success:function(data) {  // data변수 : 실제 받은 데이터 값
+					if( data == "ok" ) {  // data변수 값이 "ok" 라면 저장 성공으로 판단함
+						alert("저장완료!");
+						location="/nboardList";
+					} else {
+						alert("저장실패!");
+					}
+   				},
+   				// error : 전송에 실패한 경우
+   				error:function(){	
+					alert("전송실패!");
+   				}
+   			});
    		});
   	});
   	</script>
@@ -40,7 +70,7 @@
     게시판 등록화면
  </div>
  
-<form name="frm" method="post" action="/boardInsert">
+<form id="frm" >
 
 <table class="table1">
 	<colgroup>

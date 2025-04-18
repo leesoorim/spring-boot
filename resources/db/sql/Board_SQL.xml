@@ -16,7 +16,7 @@
 		order by
 				seqid desc
 	</select>
-	
+
 	<select id="selectBoardDetail" resultType="com.myhome.dto.BoardDto">
 		select   seqid
 				,title
