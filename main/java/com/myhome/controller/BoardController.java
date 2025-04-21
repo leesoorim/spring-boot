@@ -48,6 +48,33 @@ public class BoardController {
 		return "redirect:list";
 	}
 	
+	@PostMapping("b/update")
+	public String updateBoard(BoardDto dto) throws Exception {
+		
+		int result = boardService.updateBoard(dto);
+		if(result==1) {
+			System.out.println("== 수정 완료 ==");
+		}else {
+			System.out.println("== 수정 실패 ==");
+		}
+		
+		return "redirect:list";
+	}
+	
+	@GetMapping("b/delete/{seqid}")
+	public String deleteBoard(@PathVariable int seqid) throws Exception{
+		
+		// 서비스 실행
+		int cnt= boardService.deleteBoard(seqid);
+		if(cnt==1) {
+			System.out.println("== 삭제 완료 ==");
+		}else {
+			System.out.println("== 삭제 실패 ==");
+		}
+		
+		return "redirect:/b/list";
+	}
+	
 	@GetMapping("b/list")
 	public String selectboardList(BoardDto dto,ModelMap model) throws Exception {
 		
@@ -62,6 +89,9 @@ public class BoardController {
 	@GetMapping("b/detail/{seqid}")
 	public String selectBoardDetail(@PathVariable int seqid,ModelMap model) throws Exception{
 		
+		// 조회수 증가
+		boardService.updateBoardHits(seqid);
+		
 		// 관련 서비스 실행
 		BoardDto dto = boardService.selectBoardDetail(seqid);
 		model.addAttribute("dto",dto);
@@ -69,6 +99,15 @@ public class BoardController {
 		return "board/boardDetail";
 	}
 	
+	@GetMapping("b/modify/{seqid}") // {a}로 해도됨 받아오는 값
+	// @PathVariable :: 외부에서 유입된 데이터를 사용가능한 매개변수로 변환 처리
+	public String selelctBoardModify(@PathVariable int seqid,ModelMap model) throws Exception{
+		// 관련 서비스 실행
+		BoardDto dto = boardService.selectBoardDetail(seqid);
+		model.addAttribute("dto",dto); // (변수명,데이터값)
+		
+		return "board/boardModify";
+	}
 	
 	
 	

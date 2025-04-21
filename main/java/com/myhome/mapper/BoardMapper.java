@@ -15,4 +15,10 @@ public interface BoardMapper {
 
 	BoardDto selectBoardDetail(int seqid);
 
+	int updateBoard(BoardDto dto);
+
+	void updateBoardHits(int seqid);
+
+	int deleteBoard(int seqid);
+
 }

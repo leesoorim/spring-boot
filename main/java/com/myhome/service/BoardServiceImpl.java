@@ -33,4 +33,19 @@ public class BoardServiceImpl implements BoardService{
 		return mapper.selectBoardDetail(seqid);
 	}
 
+	@Override
+	public int updateBoard(BoardDto dto) throws Exception {
+		return mapper.updateBoard(dto);
+	}
+
+	@Override
+	public void updateBoardHits(int seqid) throws Exception {
+		mapper.updateBoardHits(seqid);
+	}
+
+	@Override
+	public int deleteBoard(int seqid) throws Exception {
+		return mapper.deleteBoard(seqid);
+	}
+
 }

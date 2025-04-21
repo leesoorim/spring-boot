@@ -11,14 +11,11 @@
 </head>
 
 <script>
-function fn_board_submit(){
-	let f= document.frm;
-	if(f.title.value==""){
-		alert("제목을 입력해주세요.");
-		f.title.focus();
-		return false;
+function fn_delete(){
+	// if(true확인){실행} if(false아니오){안실행}
+	if(confirm("정말 삭제하시겠습니까?")){ // 확인, 취소 창
+		location="/b/delete/${dto.seqid}";
 	}
-	f.submit();
 }
 </script>
 
@@ -28,7 +25,9 @@ function fn_board_submit(){
 </div>
 <form name="frm" method="post" action="insert">
 <div class="div_top_button">
-	<button type="button" onClick="location='boardList.jsp'">목록</button>
+	<button type="button" onClick="location='/b/list'">목록</button>
+	<button type="button" onClick="location='/b/modify/${dto.seqid}'">수정</button>
+	<button type="button" onClick="fn_delete()">삭제</button>
 </div>
 
 <table border="1" width="600">

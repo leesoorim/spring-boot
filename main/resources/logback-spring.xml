@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration debug="true">
+
+     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+
+           <encoder>
+
+                  <charset>UTF-8</charset>
+
+                  <Pattern>%d %5p [%c] %m%n</Pattern>
+
+           </encoder>
+
+      </appender>
+
+      <logger name="com.myhome" level="DEBUG"> <!-- name값은 패키지명과 같게 해야함 ,INFO 로 하면 콘솔출력안됨 -->
+
+            <appender-ref ref="console" />
+
+      </logger>
+
+      <logger name="jdbc.sqlonly" level="INFO">
+
+            <appender-ref ref="console" />
+
+      </logger>
+
+      <logger name="jdbc.resultsettable" level="INFO">
+
+              <appender-ref ref="console" />
+
+      </logger>
+
+</configuration>

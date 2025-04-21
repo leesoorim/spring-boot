@@ -20,7 +20,7 @@
 	
 	</select>
 	
-	<select id="selectBoardDetail" resultType="com.myhome.dto.BoardDto">
+	<select id="selectBoardDetail" resultType="com.myhome.dto.BoardDto"> 
 	
 	select 
 		   seqid 
@@ -34,7 +34,7 @@
 	from
 		nboard
 	where
-		seqid=#{seqid}
+		seqid=#{seqid} 
 		
 	
 	</select>
@@ -60,6 +60,29 @@
 						  ,'')
 	
 	</insert>
+	
+	<update id="updateBoard">
+	update nboard set TITLE = #{title}
+					 ,WRITER = #{writer}
+					 ,CONTENT =#{content}
+					 ,UDATE = sysdate
+			where
+				seqid = #{seqid}
+			and
+				pass = #{pass}
+				
+	</update>
+	
+	<update id="updateBoardHits">
+	
+	update nboard set hits=hits+1 where seqid=#{seqid}
+	
+	</update>
+	
+	<delete id="deleteBoard">
+	delete from nboard where seqid=#{seqid}
+	
+	</delete>
 
 
 </mapper>
