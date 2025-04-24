@@ -1,23 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>게시판 등록화면</title>
+	<title>공지사항 수정화면</title>
 	<link rel="stylesheet" href="../css/style.css" />
-	<!-- https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css -->
 	<link rel="stylesheet" href="../css/jquery-ui.css">
-  	<link rel="stylesheet" href="https://jqueryui.com/resources/demos/style.css">
   	<script src="../js/jquery-3.7.1.js"></script>
   	<script src="../js/jquery-ui.js"></script>
 
   	<script>
  	$( function() {
-
- 		$("#rdate").datepicker();
- 		
+	
  		$("#btn_list").click( function(){
  			location = "/nboardList";
  		});
@@ -37,18 +36,18 @@
    			let form = $("#frm").serialize();  // serialize() : 폼을 인식하는 함수
 			$.ajax({
 				type:"post",		// 전송 타입
-				url:"/nboardInsert",// 전송 장소
+				url:"/nboardUpdate",// 전송 장소
 				data:form,   		// 전송 데이터
 
    				datatype:"text", 	      // 받는 데이터 타입
-   				// success : 전송에 성공한 경우
-   				// let data = "ok";
    				success:function(data) {  // data변수 : 실제 받은 데이터 값
-					if( data == "ok" ) {  // data변수 값이 "ok" 라면 저장 성공으로 판단함
-						alert("저장완료!");
+					if( data == "1" ) {  // data변수 값이 "ok" 라면 저장 성공으로 판단함
+						alert("수정완료!");
 						location="/nboardList";
+					} else if( data == "2" ) {
+						alert("암호가 잘못됐습니다.");
 					} else {
-						alert("저장실패!");
+						alert("수정실패!");
 					}
    				},
    				// error : 전송에 실패한 경우
@@ -67,10 +66,12 @@
 
 <body>
  <div class="div_title">
-    게시판 등록화면
+    공지사항 수정화면
  </div>
  
 <form id="frm" >
+
+ <input type="hidden" id="seqid" name="seqid"  value="${dto.seqid}">
 
 <table class="table1">
 	<colgroup>
@@ -79,7 +80,7 @@
 	</colgroup>
 	<tr>
 		<th><label for="title">제목</label></th>
-		<td><input type="text" id="title" name="title" class="input1" placeholder="제목입력" autofocus></td>
+		<td><input type="text" id="title" name="title" class="input1" value="${dto.title }" placeholder="제목입력" autofocus></td>
 	</tr>
 	<tr>
 		<th><label for="pass">암호</label></th>
@@ -87,28 +88,23 @@
 	</tr>
 	<tr>
 		<th><label for="writer">글쓴이</label></th>
-		<td><input type="text" id="writer" name="writer" class="input1"></td>
+		<td><input type="text" id="writer" name="writer" class="input1" value="${dto.writer }"></td>
 	</tr>
-	
-	<tr>
-		<th><label for="rdate">날짜</label></th>
-		<td><input type="text" id="rdate" name="rdate" class="input1"></td>
-	</tr>
-	
+
 	<tr>
 		<th><label for="emsis">강조</label></th>
 		<td style="text-align:left;">
-		&nbsp;<input type="checkbox" id="emsis" name="emsis" value="Y"></td>
+		&nbsp;<input type="checkbox" id="emsis" name="emsis" value="Y" 
+		      <c:if test="${dto.emsis=='Y'}">checked</c:if>  ></td>
 	</tr>
-	
 	<tr>
 		<th><label for="content">내용</label></th>
-		<td><textarea id="content" name="content" class="textarea1"></textarea></td>
+		<td><textarea id="content" name="content" class="textarea1">${dto.content }</textarea></td>
 	</tr>
 </table>
 
  <div class="div_button_area">
-    <button type="submit" id="btn_submit">저장</button>
+    <button type="submit" id="btn_submit" onClick="return false;">저장</button>
     <button type="reset">취소</button>
     <button type="button" id="btn_list">목록</button>
  </div>
